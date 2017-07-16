@@ -11,4 +11,8 @@ class Service < ActiveRecord::Base
   validates :revisions, presence: false
   validates :requirements, presence: true, length: {maximum:450}
   validates_attachment_content_type :image, content_type: /\Aimage\/.*\Z/
+
+  def self.get_recent
+    self.order(updated_at: :desc).limit(4)
+  end
 end

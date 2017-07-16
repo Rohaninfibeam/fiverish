@@ -8,4 +8,13 @@ class User < ActiveRecord::Base
 
   has_many :services
   has_many :orders
+  has_many :credit_cards
+
+  after_commit :assign_customer_id, on: :create
+
+  def assign_customer_id
+    customer = Stripe::Customer.create(email: email)
+    self.customer_id = customer.id
+  end
+  
 end

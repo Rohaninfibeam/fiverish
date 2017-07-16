@@ -2,16 +2,23 @@ Rails.application.routes.draw do
   devise_for :users
   root 'pages#home'
   resources :users, only: [:show]
-  resources :services
+  resources :services do
+    collection do
+      get 'all_services'
+    end
+  end
 
   resources :services do
     resources :orders, only: [:create]
   end
 
-  resources :orders, only: [:show]
+  resources :orders, only: [:show] do
+    collection do
+      post 'create_payment'
+    end
+  end
 
   get '/user_orders' => 'orders#user_orders'
-
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

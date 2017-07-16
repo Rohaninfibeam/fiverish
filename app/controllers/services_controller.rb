@@ -6,6 +6,7 @@ class ServicesController < ApplicationController
   end
 
   def show
+    @service = Service.find(params[:id])
   end
 
   def new
@@ -13,18 +14,32 @@ class ServicesController < ApplicationController
   end
 
   def create
-    # TODO: Save the newly created service. Redirect to an appropriate page if save fails.
+    @service = current_user.services.new(service_params)
+    if(!@service.save)
+      render "new"
+    end
+  end
+
+  def all_services
+    @services = Service.all
   end
 
   def edit
   end
 
   def update
-    # TODO: Save the updated service. Redirect to an appropriate page if save fails.
+    @service.update_attributes!(service_params)
+    if(!@service.save)
+      render "edit"
+    end
   end
 
   private
   def set_service
     @service = Service.find(params[:id])
+  end
+
+  def service_params
+    params.require(:service).permit(:id,:title,:description,:requirements,:price,:image)
   end
 end
