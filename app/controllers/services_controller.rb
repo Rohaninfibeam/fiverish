@@ -17,6 +17,9 @@ class ServicesController < ApplicationController
     @service = current_user.services.new(service_params)
     if(!@service.save)
       render "new"
+    else
+      flash[:success] = "Successfully created..."
+      redirect_to :action=>"show", :id=>@service.id
     end
   end
 
@@ -31,6 +34,9 @@ class ServicesController < ApplicationController
     @service.update_attributes!(service_params)
     if(!@service.save)
       render "edit"
+    else
+      flash[:success] = "Successfully updated..."
+      redirect_to :action=>"show", :id=>@service.id
     end
   end
 

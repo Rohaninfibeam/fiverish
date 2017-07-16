@@ -1,4 +1,8 @@
 <br/><br/>
+<% if flash[:success].present?%>
+  <%= content_tag :div, flash[:success], class:"success"%>
+<% end %>
+</br>
 <div class="row">
   <div class="col-md-8">
     <div class="panel panel-default">
