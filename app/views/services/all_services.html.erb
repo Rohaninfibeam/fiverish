@@ -1,0 +1,15 @@
+</br>
+<table class="table">
+  <tr class="row">
+    <th class ="column">Title</th>
+    <th class ="column">Price</th>
+    <th class ="column">Order</th>
+  </tr>
+  <%@services.each do |s|%>
+  <tr class="row">
+    <td class ="column"><%=s.title%></td>
+    <td class ="column"><%=s.price%></td>
+    <td class ="column button"><%=link_to "order", controller: "services", action: "show", id:s.id%></td>
+  </tr>
+  <%end%>
+</table>
